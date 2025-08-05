@@ -1,46 +1,14 @@
 import Head from "next/head";
+import Link from "next/link";
+import Logo from "@/components/ui/logo";
 import MovieCard from "@/components/ui/MovieCard";
 import HeroSection from "@/components/sections/heroSection";
 import TrendingMovies from "@/components/sections/TrendingMovies";
 import Divider from "@/components/ui/Divider";
+import MoreReasons from "@/components/sections/MoreReassons";
+import FAQ from "@/components/sections/F&Q";
+import ReverseDivider from "@/components/ui/ReverseDivider";
 
-
-const movies = [
-  {
-    id: 1,
-    title: "Inception",
-    poster: "/inception.jpeg", // add your images in /public/posters/
-    rating: 8.8,
-    genre: "Sci-Fi"
-  },
-  {
-    id: 2,
-    title: "The Dark Knight",
-    poster: "/dark-knight.jpeg",
-    rating: 9.0,
-    genre: "Action"
-  },
-  {
-    id: 3,
-    title: "Interstellar",
-    poster: "/interstellar.jpeg",
-    rating: 8.6,
-    genre: "Sci-Fi"
-  },
-  {
-    id: 4,
-    title: "Parasite",
-    poster: "/parasite.jpeg",
-    rating: 8.6,
-    genre: "Thriller"
-  },
-  { id: 5, title: "Avatar: The Way of Water", poster: "/avatar2.jpeg", rating: 7.8 },
-  { id: 6, title: "Spider-Man: No Way Home", poster: "/spiderman-nwh.jpeg", rating: 8.3 },
-  { id: 7, title: "Top Gun: Maverick", poster: "/topgun-maverick.jpeg", rating: 8.4 },
-  { id: 8, title: "Joker", poster: "/joker.jpeg", rating: 8.5 },
-  { id: 9, title: "Black Panther: Wakanda Forever", poster: "/black-panther2.jpeg", rating: 7.4 },
-  { id: 10, title: "Guardians of the Galaxy Vol. 3", poster: "/guardians3.jpeg", rating: 8.0 }
-];
 export default function Home() {
   return (
     <>
@@ -53,27 +21,37 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
 
-      <div className="min-h-screen bg-[#0D1B2A] text-white flex flex-col ">
+      <div className="min-h-screen w-full bg-[#0D1B2A] text-white flex flex-col ">
+        <nav
+          className="fixed sm:top-2.5 md:top-5.5 top-3 left-1/2 transform -translate-x-1/2 z-50 w-[98%] max-w-4xl bg-white/10 backdrop-blur-md px-6 py-2.5 rounded-3xl flex justify-between items-center"
+        >
+          {/* Logo */}
+          <div className="cursor-pointer">
+            <Logo size="text-2xl md:text-3xl" />
+          </div>
 
-        {/* Hero Section */}
+          {/* Auth Buttons */}
+          <div className="flex gap-4">
+            <Link
+              href="/auth/signin"
+              className="px-4 py-2 border border-[#FFC107] text-[#FFC107] rounded hover:bg-[#FFC107] hover:text-black transition"
+            >
+              Sign In
+            </Link>
+            <Link
+              href="/auth/signup"
+              className="px-4 py-2 bg-[#FFC107] text-black font-bold rounded hover:bg-yellow-400 transition"
+            >
+              Sign Up
+            </Link>
+          </div>
+        </nav>
         <HeroSection />
         <Divider />
-        <TrendingMovies movies={movies} />
-        <Divider />
-        {/* Featured Movies */}
-        <section className="max-w-6xl mx-auto px-4 md:px-0 pb-20">
-          <h2 className="text-3xl font-semibold mb-8 text-white border-b border-[#FFC107] pb-1 w-fit">
-            Featured Movies
-          </h2>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
-            {movies.map((movie) => (
-              <MovieCard key={movie.id} {...movie} />
-            ))}
-
-          </div>
-        </section>
-
+        <TrendingMovies />
+        <MoreReasons />
+        <FAQ />
+        <ReverseDivider />
       </div>
     </>
   );

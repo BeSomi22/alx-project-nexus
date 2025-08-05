@@ -4,7 +4,7 @@ import { FiFacebook, FiTwitter, FiInstagram, FiGithub } from "react-icons/fi";
 
 export default function Footer() {
   return (
-    <footer className="bg-[#0D1B2A] text-white py-10 mt-12 border-t border-white/10">
+    <footer className="bg-[#1B263B] text-white py-10  border-t border-white/10">
       <div className="max-w-6xl mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-8">
         {/* Brand Section */}
         <div>

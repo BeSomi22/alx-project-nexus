@@ -1,109 +1,87 @@
-// import Link from 'next/link'
-
-// interface MovieCardProps {
-//     id: number;
-//     title: string;
-//     poster: string;
-//     rating: number;
-//     genre?: string;
-// }
-
-// export default function MovieCard({ id, title, poster, rating, genre }: MovieCardProps) {
-//     return (
-//         <Link href={`/movie/${id}`} passHref>
-//             <div
-//                 className="bg-[#1E293B] rounded-2xl overflow-hidden shadow-lg 
-//                    hover:shadow-2xl hover:scale-105 transition-transform duration-300 
-//                    cursor-pointer flex flex-col"
-//             >
-//                 {/* Poster */}
-//                 <img
-//                     src={poster}
-//                     alt={title}
-//                     className="w-full h-72 object-cover"
-//                     loading="lazy"
-//                 />
-
-//                 {/* Content */}
-//                 <div className="p-4 flex flex-col flex-1">
-//                     {/* Title */}
-//                     <h3 className="font-semibold text-lg mb-1">{title}</h3>
-
-//                     {/* Optional Genre */}
-//                     {genre && (
-//                         <p className="text-sm text-gray-400 mb-2">{genre}</p>
-//                     )}
-
-//                     {/* Rating */}
-//                     <div className="mt-auto inline-block bg-gradient-to-bl from-[#FFC107] via-[#FF3D3D] to-[#E50914] text-black font-bold px-3 py-1 rounded-full tracking-wide">
-//                         ⭐ {rating.toFixed(1)}
-//                     </div>
-//                 </div>
-//             </div>
-//         </Link>
-//     );
-// }
-
 import Link from "next/link";
+import { FaHeart, FaRegHeart } from "react-icons/fa";
+import { useFavoritesStore } from "@/store/favouritesStore";
 
 interface MovieCardProps {
-    id: number;
+    tmdb_id: number;
     title: string;
-    poster: string;
-    rating: number;
-    genre?: string;
+    poster_url: string;
+    vote_average: number;
+    genres?: string[];
 }
 
 export default function MovieCard({
-    id,
+    tmdb_id,
     title,
-    poster,
-    rating,
-    genre,
+    poster_url,
+    vote_average,
+    genres,
 }: MovieCardProps) {
+    const { addFavorite, removeFavorite, isFavorite } = useFavoritesStore();
+    const favorite = isFavorite(tmdb_id);
+
+    const toggleFavorite = (e: React.MouseEvent) => {
+        e.preventDefault(); // Prevent navigation when clicking heart
+        if (favorite) {
+            removeFavorite(tmdb_id);
+        } else {
+            addFavorite({ tmdb_id, title, poster_url, vote_average, genres });
+        }
+    };
+
     return (
-        <Link href={`/movie/${id}`} passHref>
-            <div
-                className="group relative overflow-hidden rounded-2xl 
-                   bg-[#1E293B] shadow-lg hover:shadow-2xl cursor-pointer 
-                   transition-transform duration-300 hover:scale-[1.03]"
-            >
-                {/* Poster */}
-                <div className="relative">
-                    <img
-                        src={poster}
-                        alt={title}
-                        className="w-full h-80 object-cover transition-transform duration-500 group-hover:scale-110"
-                        loading="lazy"
-                    />
+        <Link
+            href={`/movie/${tmdb_id}`}
+            className="group block rounded-xl overflow-hidden shadow-lg cursor-pointer select-none relative"
+        >
+            {/* Poster */}
+            <div className="relative w-full h-80">
+                <img
+                    src={poster_url}
+                    alt={title}
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                    loading="lazy"
+                />
 
-                    {/* Rating badge */}
-                    <div
-                        className="absolute top-3 left-3 bg-gradient-to-bl from-[#FFC107] via-[#FF3D3D] to-[#E50914] 
-                       text-white font-bold px-3 py-1 rounded-full text-sm shadow-md"
+                {/* Favorite button */}
+                <button
+                    onClick={toggleFavorite}
+                    className="absolute top-3 right-3 p-2 bg-black/60 rounded-full hover:bg-black/80 transition"
+                >
+                    {favorite ? (
+                        <FaHeart className="text-red-500 text-lg" />
+                    ) : (
+                        <FaRegHeart className="text-white text-lg" />
+                    )}
+                </button>
+
+                {/* Rating badge */}
+                <div className="absolute top-3 left-3 bg-gradient-to-bl from-yellow-400 via-red-500 to-pink-600 text-white font-semibold px-3 py-1.5 rounded-full flex items-center space-x-1 text-sm shadow-md select-none">
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="h-4 w-4 text-yellow-300"
+                        fill="currentColor"
+                        viewBox="0 0 20 20"
                     >
-                        ⭐ {rating.toFixed(1)}
-                    </div>
-
-                    {/* Gradient overlay on hover */}
-                    <div
-                        className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent 
-                       opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                    ></div>
+                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.966a1 1 0 00.95.69h4.184c.969 0 1.371 1.24.588 1.81l-3.39 2.462a1 1 0 00-.364 1.118l1.287 3.966c.3.921-.755 1.688-1.54 1.118l-3.39-2.462a1 1 0 00-1.176 0l-3.39 2.462c-.784.57-1.838-.197-1.54-1.118l1.287-3.966a1 1 0 00-.364-1.118L2.045 9.393c-.783-.57-.38-1.81.588-1.81h4.184a1 1 0 00.95-.69l1.286-3.966z" />
+                    </svg>
+                    <span>{vote_average.toFixed(1)}</span>
                 </div>
 
-                {/* Content */}
-                <div className="p-4 flex flex-col justify-between h-20">
-                    <h3
-                        className="font-bold text-lg text-white group-hover:text-[#FFC107] 
-                       transition-colors duration-300 line-clamp-1"
-                    >
-                        {title}
-                    </h3>
-                    {genre && (
-                        <p className="text-sm text-gray-400 group-hover:text-gray-300 transition-colors">
-                            {genre}
-                        </p>
+                {/* Hover overlay */}
+                <div
+                    className="
+            absolute inset-x-0 bottom-0
+            bg-gradient-to-t from-black/90 to-transparent
+            p-4
+            opacity-0 group-hover:opacity-100
+            transition-opacity duration-300
+            pointer-events-none
+          "
+                >
+                    <h3 className="text-white font-bold text-lg truncate">{title}</h3>
+                    {genres && genres.length > 0 && (
+                        <p className="text-gray-300 text-sm truncate">{genres.join(", ")}</p>
                     )}
                 </div>
             </div>

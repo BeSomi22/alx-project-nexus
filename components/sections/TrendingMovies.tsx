@@ -2,6 +2,7 @@ import Link from "next/link";
 import useEmblaCarousel from "embla-carousel-react";
 import { useCallback, useEffect, useState } from "react";
 import TrendingMoviesSkeleton from "../ui/TrendingMoviesSkeleton";
+import Image from "next/image";
 
 interface TrendingMovie {
     tmdb_id: number;
@@ -30,7 +31,7 @@ export default function TrendingMovies() {
                 if (!apiUrl) throw new Error("API URL is not configured");
 
                 const endpoint = `${apiUrl}/api/v1/movies/trending/`;
-                console.log("Fetching Trending Movies from:", endpoint);
+                // console.log("Fetching Trending Movies from:", endpoint);
 
                 const res = await fetch(endpoint, {
                     method: "GET",
@@ -125,14 +126,16 @@ export default function TrendingMovies() {
 
                                     {/* Poster */}
                                     <div className="relative overflow-hidden rounded-lg shadow-lg hover:scale-105 transition-transform duration-300">
-                                        <img
+
+                                        <Image
                                             src={movie.poster_url}
                                             alt={movie.title}
-                                            className={`${index === 0
-                                                ? "w-40 sm:w-52 lg:w-52 h-56 sm:h-72 lg:h-72"
-                                                : "w-36 sm:w-44 lg:w-44 h-52 sm:h-64 lg:h-64"
-                                                } object-cover`}
-                                            loading="lazy"
+                                            width={index === 0 ? 208 : 176}
+                                            height={index === 0 ? 288 : 256}
+                                            style={{ width: "100%", height: "auto" }}
+                                            className="object-cover"
+                                            // loading="lazy"
+                                            priority
                                         />
                                         {/* Rating Badge */}
                                         <div className="absolute top-2 right-2 bg-gradient-to-bl from-[#FFC107] via-[#FF3D3D] to-[#E50914] text-white font-bold px-2 py-0.5 rounded-full text-xs shadow-md">

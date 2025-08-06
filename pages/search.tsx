@@ -26,7 +26,7 @@ export default function SearchPage() {
                 if (!apiUrl) throw new Error("API URL not configured");
 
                 const url = `${apiUrl.replace(/\/$/, "")}/api/v1/movies/search?q=${encodeURIComponent(q as string)}`;
-                console.log("Fetching:", url);
+                // console.log("Fetching:", url);
 
                 const res = await fetch(url, {
                     headers: {
@@ -36,13 +36,13 @@ export default function SearchPage() {
                     },
                 });
 
-                console.log("Response status:", res.status);
+                // console.log("Response status:", res.status);
 
                 if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
 
                 const data = await res.json();
 
-                console.log("Response data:", data);
+                // console.log("Response data:", data);
 
                 if (Array.isArray(data.data?.results)) {
                     setMovies(data.data.results);
@@ -95,7 +95,6 @@ export default function SearchPage() {
                             key={movie.tmdb_id}
                             tmdb_id={movie.tmdb_id}
                             title={movie.title}
-                            // poster_url={movie.poster_url}
 
                             // Fallback image if poster_url is missing or empty
                             poster_url={

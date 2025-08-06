@@ -31,7 +31,7 @@ export default function PopularMovies() {
                 }
 
                 const endpoint = `${apiUrl}/api/v1/movies/popular/`;
-                console.log("Fetching from:", endpoint);
+                // console.log("Fetching from:", endpoint);
 
                 const res = await fetch(endpoint, {
                     method: "GET",
@@ -127,6 +127,7 @@ export default function PopularMovies() {
                                             width={120}
                                             height={180}
                                             className="rounded-lg shadow-lg object-cover"
+                                            priority
                                         />
                                     </Link>
                                     {/* Movie Details */}

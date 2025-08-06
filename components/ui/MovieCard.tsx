@@ -35,12 +35,14 @@ export default function MovieCard({
                     alt={title}
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                     loading="lazy"
+
                 />
 
                 {/* Favorite button */}
                 <button
                     onClick={toggleFavorite}
                     className="absolute top-3 right-3 p-2 bg-black/60 rounded-full hover:bg-black/80 transition"
+                    aria-label={favorite ? "Remove from favorites" : "Add to favorites"}
                 >
                     {favorite ? (
                         <FaHeart className="text-red-500 text-lg" />

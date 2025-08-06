@@ -1,4 +1,5 @@
 import Button from "@/components/ui/button";
+import Image from "next/image";
 
 export default function HeroSection() {
     return (
@@ -8,10 +9,13 @@ export default function HeroSection() {
 
             {/* Background Image with Overlay */}
             <div className="absolute inset-0">
-                <img
+                <Image
                     src="/hero-bg.jpeg"
                     alt="CinePick Background"
-                    className="w-full h-full object-cover"
+                    width={1920}
+                    height={1080}
+                    className="object-cover"
+                    priority
                 />
                 <div className="absolute inset-0 bg-black/70 backdrop-blur-sm" />
             </div>

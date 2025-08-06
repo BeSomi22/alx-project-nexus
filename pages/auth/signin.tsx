@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import { useState, useEffect } from 'react'
 import Logo from '@/components/ui/logo';
 import Link from "next/link"
+import Image from 'next/image';
 import Toast from '@/components/ui/Toast';
 
 export default function SignInPage() {
@@ -62,11 +63,14 @@ export default function SignInPage() {
         <div className="relative min-h-screen flex items-center justify-center text-white overflow-hidden">
             {/* Background */}
             <div className="absolute inset-0 min-h-screen w-full">
-                <img
-                    src="/hero-bg.jpeg"
-                    alt="Background"
-                    className="h-full w-full object-cover"
-                />
+                <div className="relative w-full h-full">
+                    <Image
+                        src="/hero-bg.jpeg"
+                        alt="Background"
+                        fill
+                        className="object-cover"
+                    />
+                </div>
                 <div className="absolute inset-0 bg-black/70 backdrop-blur-sm" />
             </div>
             {/* Alert Message */}
@@ -78,7 +82,7 @@ export default function SignInPage() {
                 transition={{ duration: 0.5 }}
                 onSubmit={handleSubmit}
 
-                className="relative z-10 bg-[#1E293B]/90 p-8 rounded-tl-2xl rounded-br-2xl w-full max-w-md  shadow-2xl shadow-white/20"
+                className="relative z-10 bg-[#1E293B]/90 p-8 rounded-tl-2xl rounded-br-2xl w-full max-w-md  shadow-2xl shadow-white/20 mx-3"
             >
                 <div className="flex justify-center mb-6">
                     <Logo size="text-4xl" />
@@ -132,7 +136,13 @@ export default function SignInPage() {
                     onClick={handleGoogleSignIn}
                     className="w-full flex items-center justify-center gap-3 bg-white text-black font-semibold py-3 rounded-lg hover:bg-gray-200 transition"
                 >
-                    <img src="/google-icon.png" alt="Google" className="w-5 h-5" />
+                    <Image
+                        src="/google-icon.png"
+                        alt="Google"
+                        width={20}
+                        height={20}
+                        className="w-5 h-5"
+                    />
                     Continue with Google
                 </motion.button>
 

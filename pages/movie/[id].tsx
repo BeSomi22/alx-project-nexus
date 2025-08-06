@@ -1,8 +1,9 @@
-
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import Navbar from "@/components/layout/Navbar";
+import Carousel from "@/components/ui/Carousal";
+import MovieCard from "@/components/ui/MovieCard";
 import ReverseDivider from "@/components/ui/ReverseDivider";
 
 interface Genre {
@@ -29,7 +30,6 @@ interface MovieDetailType {
     imdb_url?: string;
     tmdb_url?: string;
     original_language: string;
-
 }
 
 
@@ -42,27 +42,28 @@ export default function MovieDetail() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
 
+    const [similarMovies, setSimilarMovies] = useState<MovieDetailType[]>([]);
+    const [recommendedMovies, setRecommendedMovies] = useState<MovieDetailType[]>([]);
+
     useEffect(() => {
         if (!id) return;
+
+        const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+        if (!apiUrl) return;
+
+        const commonHeaders = {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            "ngrok-skip-browser-warning": "true",
+        };
 
         const fetchMovieDetails = async () => {
             try {
                 setLoading(true);
                 setError("");
 
-                const apiUrl = process.env.NEXT_PUBLIC_API_URL;
-                if (!apiUrl) throw new Error("API URL is not configured");
-
                 const endpoint = `${apiUrl}/api/v1/movies/${id}/`;
-                const res = await fetch(endpoint, {
-                    method: "GET",
-                    headers: {
-                        Accept: "application/json",
-                        "Content-Type": "application/json",
-                        "ngrok-skip-browser-warning": "true",
-                    },
-                    mode: "cors",
-                });
+                const res = await fetch(endpoint, { headers: commonHeaders, mode: "cors" });
 
                 if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
 
@@ -83,9 +84,56 @@ export default function MovieDetail() {
             }
         };
 
-        fetchMovieDetails();
-    }, [id]);
+        const fetchSimilarMovies = async () => {
+            try {
+                const endpoint = `${apiUrl}/api/v1/movies/${id}/similar/`;
+                const res = await fetch(endpoint, { headers: commonHeaders, mode: "cors" });
 
+                if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+
+                const contentType = res.headers.get("content-type");
+                if (!contentType || !contentType.includes("application/json")) {
+                    const text = await res.text();
+                    console.error("Non-JSON response:", text);
+                    throw new Error("Server returned non-JSON response");
+                }
+
+                const data = await res.json();
+                setSimilarMovies(
+                    Array.isArray(data.data?.similar_movies) ? data.data.similar_movies : []
+                );
+            } catch (err) {
+                console.error("Failed to fetch similar movies:", err);
+            }
+        };
+
+        const fetchRecommendedMovies = async () => {
+            try {
+                const endpoint = `${apiUrl}/api/v1/movies/${id}/recommendations/`;
+                const res = await fetch(endpoint, { headers: commonHeaders, mode: "cors" });
+
+                if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+
+                const contentType = res.headers.get("content-type");
+                if (!contentType || !contentType.includes("application/json")) {
+                    const text = await res.text();
+                    console.error("Non-JSON response:", text);
+                    throw new Error("Server returned non-JSON response");
+                }
+
+                const data = await res.json();
+                setRecommendedMovies(
+                    Array.isArray(data.data?.recommendations) ? data.data.recommendations : []
+                );
+            } catch (err) {
+                console.error("Failed to fetch recommended movies:", err);
+            }
+        };
+
+        fetchMovieDetails();
+        fetchSimilarMovies();
+        fetchRecommendedMovies();
+    }, [id]);
 
     if (loading) {
         return (
@@ -109,6 +157,7 @@ export default function MovieDetail() {
 
     return (
         <div>
+            {/* Movie Details */}
             <section className="max-w-5xl mx-auto p-6 pt-25 pb-20 text-white">
                 <Navbar />
                 <div className="flex flex-col md:flex-row gap-8">
@@ -163,6 +212,46 @@ export default function MovieDetail() {
                     </div>
                 </div>
             </section >
+
+            {/* Similar Movies */}
+            {similarMovies.length > 0 && (
+                <section className="max-w-6xl mx-auto mt-12 px-6">
+                    <h2 className="text-2xl font-bold mb-4 text-white">Similar Movies</h2>
+                    <Carousel>
+                        {similarMovies.map((movie) => (
+                            <div key={movie.tmdb_id} className="min-w-[180px] flex-shrink-0">
+                                <MovieCard
+                                    tmdb_id={movie.tmdb_id}
+                                    title={movie.title}
+                                    poster_url={movie.poster_url}
+                                    vote_average={movie.vote_average}
+                                    genres={[]}
+                                />
+                            </div>
+                        ))}
+                    </Carousel>
+                </section>
+            )}
+
+            {/* Recommended movies */}
+            {recommendedMovies.length > 0 && (
+                <section className="max-w-6xl mx-auto mt-12 px-6">
+                    <h2 className="text-2xl font-bold mb-4 text-white">Recommended Movies</h2>
+                    <Carousel>
+                        {recommendedMovies.map((movie) => (
+                            <div key={movie.tmdb_id} className="min-w-[180px] flex-shrink-0">
+                                <MovieCard
+                                    tmdb_id={movie.tmdb_id}
+                                    title={movie.title}
+                                    poster_url={movie.poster_url}
+                                    vote_average={movie.vote_average}
+                                    genres={[]} // optional
+                                />
+                            </div>
+                        ))}
+                    </Carousel>
+                </section>
+            )}
             <ReverseDivider />
         </div >
 

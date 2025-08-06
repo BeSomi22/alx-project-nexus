@@ -42,15 +42,6 @@ export default function SearchPage() {
 
                 console.log("Response data:", data);
 
-                // if (Array.isArray(data)) {
-                //     setMovies(data);
-                // } else if (Array.isArray(data.data)) {
-                //     setMovies(data.data);
-                // } else if (Array.isArray(data.results)) {
-                //     setMovies(data.results);
-                // } else {
-                //     setMovies([]);
-                // }
                 if (Array.isArray(data.data?.results)) {
                     setMovies(data.data.results);
                 } else {

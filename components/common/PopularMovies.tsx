@@ -40,13 +40,14 @@ export default function PopularMovies() {
                 console.log("Fetching from:", endpoint);
 
                 const res = await fetch(endpoint, {
-                    method: "GET", // Explicitly set method like login example
+                    method: "GET",
                     headers: {
                         "Accept": "application/json",
                         "Content-Type": "application/json",
                         'ngrok-skip-browser-warning': 'true',
                     },
-                    mode: 'cors', // Add this
+                    mode: 'cors',
+                    cache: 'no-store',
                 });
 
                 // Check if response is ok

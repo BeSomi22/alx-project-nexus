@@ -82,7 +82,11 @@ export default function MoviesList() {
             {movies.length === 0 ? (
                 <p className="text-gray-400">No movies found.</p>
             ) : (
-                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-6">
+                <div className="grid
+                    gap-6
+                    grid-cols-2     
+                    md:grid-cols-3    
+                    lg:grid-cols-5  ">
                     {movies.map((movie) => (
                         <MovieCard key={movie.tmdb_id} {...movie} />
                     ))}

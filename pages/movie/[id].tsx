@@ -1,49 +1,23 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import { MovieType } from "@/interfaces";
 import Image from "next/image";
 import Navbar from "@/components/layout/Navbar";
 import Carousel from "@/components/ui/Carousal";
 import MovieCard from "@/components/ui/MovieCard";
 import ReverseDivider from "@/components/ui/ReverseDivider";
 
-interface Genre {
-    id: number;
-    tmdb_id: number;
-    name: string;
-    slug: string;
-    is_primary: boolean;
-    weight: number;
-}
-
-interface MovieDetailType {
-    tmdb_id: number;
-    title: string;
-    overview: string;
-    release_year?: string;
-    vote_average: number;
-    poster_url: string;
-    backdrop_url: string;
-    genres?: Genre[];
-    tagline?: string;
-    runtime_formatted?: string;
-    homepage?: string;
-    imdb_url?: string;
-    tmdb_url?: string;
-    original_language: string;
-}
-
-
 
 export default function MovieDetail() {
     const router = useRouter();
     const { id } = router.query;
 
-    const [movie, setMovie] = useState<MovieDetailType | null>(null);
+    const [movie, setMovie] = useState<MovieType | null>(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
 
-    const [similarMovies, setSimilarMovies] = useState<MovieDetailType[]>([]);
-    const [recommendedMovies, setRecommendedMovies] = useState<MovieDetailType[]>([]);
+    const [similarMovies, setSimilarMovies] = useState<MovieType[]>([]);
+    const [recommendedMovies, setRecommendedMovies] = useState<MovieType[]>([]);
 
     useEffect(() => {
         if (!id) return;
@@ -158,44 +132,56 @@ export default function MovieDetail() {
     return (
         <div>
             {/* Movie Details */}
-            <section className="max-w-5xl mx-auto p-6 pt-25 pb-20 text-white">
+            <section
+                className="relative w-full text-white">
                 <Navbar />
-                <div className="flex flex-col md:flex-row gap-8">
 
+                {/* Content */}
+                <div className="relative z-10 max-w-6xl mx-auto px-6 py-20 flex flex-col md:flex-row gap-10">
                     {/* Poster */}
                     <div className="flex-shrink-0">
                         <Image
                             src={movie.poster_url}
                             alt={movie.title}
-                            width={260}
-                            height={390}
-                            className="rounded-2xl shadow-lg"
+                            width={280}
+                            height={420}
+                            className="rounded-2xl shadow-2xl border border-white/10"
                             priority
                         />
                     </div>
 
                     {/* Details */}
-                    <div className="flex-1 space-y-6 text-gray-300">
-                        <h1 className="text-4xl md:text-5xl text-white font-extrabold mb-4 tracking-tight">{movie.title}</h1>
-                        {movie.tagline && (
-                            <p className="italic text-gray-400 mb-6 text-lg max-w-3xl">{`"${movie.tagline}"`}</p>
-                        )}
-                        <p className="leading-relaxed text-lg">{movie.overview}</p>
+                    <div className="flex-1 space-y-6">
+                        <h1 className="text-4xl md:text-5xl font-extrabold leading-tight">
+                            {movie.title}
+                        </h1>
 
-                        <div className="grid grid-cols-2 gap-x-8 gap-y-4 max-w-md">
+                        {movie.tagline && (
+                            <p className="italic text-gray-300 text-lg">{`"${movie.tagline}"`}</p>
+                        )}
+
+                        <p className="leading-relaxed text-base md:text-lg text-gray-200 max-w-3xl">
+                            {movie.overview}
+                        </p>
+
+                        <div className="grid grid-cols-2 gap-x-8 gap-y-4 max-w-lg text-sm md:text-base">
                             <div>
-                                <span className="font-semibold text-white">Release Date:</span> {movie.release_year}
+                                <span className="font-semibold text-white">Release Year:</span>{" "}
+                                {movie.release_year}
                             </div>
                             {movie.runtime_formatted && (
                                 <div>
-                                    <span className="font-semibold text-white">Runtime:</span> {movie.runtime_formatted}
+                                    <span className="font-semibold text-white">Runtime:</span>{" "}
+                                    {movie.runtime_formatted}
                                 </div>
                             )}
                             <div>
-                                <span className="font-semibold text-white">Rating:</span> ⭐ {movie.vote_average.toFixed(1)}
+                                <span className="font-semibold text-white">Rating:</span> ⭐{" "}
+                                {movie.vote_average.toFixed(1)}
                             </div>
                             <div>
-                                <span className="font-semibold text-white">Original Language:</span> {movie.original_language.toUpperCase()}
+                                <span className="font-semibold text-white">Language:</span>{" "}
+                                {movie.original_language.toUpperCase()}
                             </div>
                             {movie.genres && movie.genres.length > 0 && (
                                 <div className="col-span-2">
@@ -204,19 +190,18 @@ export default function MovieDetail() {
                                 </div>
                             )}
                         </div>
-
-                        {/* External Links */}
-                        {/* <div className="flex items-center space-x-6 mt-6">
-                           
-                    </div> */}
                     </div>
                 </div>
-            </section >
+            </section>
 
             {/* Similar Movies */}
             {similarMovies.length > 0 && (
-                <section className="max-w-6xl mx-auto mt-12 px-6">
-                    <h2 className="text-2xl font-bold mb-4 text-white">Similar Movies</h2>
+                <section className="max-w-6xl mx-auto mt-12 px-6 py-12">
+                    <div className="flex justify-between items-center mb-6">
+                        <h2 className="text-2xl sm:text-3xl font-bold text-white border-b border-[#FFC107] pb-1 w-fit ml-5">
+                            Similar Movies
+                        </h2>
+                    </div>
                     <Carousel>
                         {similarMovies.map((movie) => (
                             <div key={movie.tmdb_id} className="min-w-[180px] flex-shrink-0">
@@ -235,8 +220,12 @@ export default function MovieDetail() {
 
             {/* Recommended movies */}
             {recommendedMovies.length > 0 && (
-                <section className="max-w-6xl mx-auto mt-12 px-6">
-                    <h2 className="text-2xl font-bold mb-4 text-white">Recommended Movies</h2>
+                <section className="max-w-6xl mx-auto mt-12 px-6 py-12">
+                    <div className="flex justify-between items-center mb-6">
+                        <h2 className="text-2xl sm:text-3xl font-bold text-white border-b border-[#FFC107] pb-1 w-fit ml-5">
+                            Recommended Movies
+                        </h2>
+                    </div>
                     <Carousel>
                         {recommendedMovies.map((movie) => (
                             <div key={movie.tmdb_id} className="min-w-[180px] flex-shrink-0">

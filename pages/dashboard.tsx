@@ -27,6 +27,7 @@ export default function Dashboard() {
         }
     }, [router])
 
+
     return (
         <div className="min-h-screen w-full bg-[#0F172A] text-white flex flex-col items-center justify-center">
             <Navbar />

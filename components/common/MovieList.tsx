@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import MoviesListSkeleton from "../ui/MoviesListSkeleton";
 import MovieCard from "@/components/ui/MovieCard";
 
 interface Movie {
@@ -57,9 +58,8 @@ export default function MoviesList() {
         fetchMovies();
     }, []);
 
-
     if (loading) {
-        return <p className="text-white p-10">Loading movies...</p>;
+        return <MoviesListSkeleton />;
     }
 
     if (error) {
@@ -82,7 +82,7 @@ export default function MoviesList() {
             {movies.length === 0 ? (
                 <p className="text-gray-400">No movies found.</p>
             ) : (
-                <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-5 gap-6">
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-6">
                     {movies.map((movie) => (
                         <MovieCard key={movie.tmdb_id} {...movie} />
                     ))}

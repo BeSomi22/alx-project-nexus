@@ -1,6 +1,7 @@
 import Link from "next/link";
 import useEmblaCarousel from "embla-carousel-react";
 import { useCallback, useEffect, useState } from "react";
+import TrendingMoviesSkeleton from "../ui/TrendingMoviesSkeleton";
 
 interface TrendingMovie {
     tmdb_id: number;
@@ -63,17 +64,21 @@ export default function TrendingMovies() {
         fetchTrendingMovies();
     }, []);
 
+    // if (loading) {
+    //     return (
+    //         <section className="w-full mx-auto px-10 py-20">
+    //             <div className="flex justify-between items-center mb-6">
+    //                 <h2 className="text-2xl sm:text-3xl font-bold text-white border-b border-[#FFC107] pb-1 w-fit ml-5">
+    //                     Trending Now
+    //                 </h2>
+    //             </div>
+    //             <p className="text-gray-400">Loading trending movies...</p>
+    //         </section>
+    //     );
+    // }
+
     if (loading) {
-        return (
-            <section className="w-full mx-auto px-10 py-20">
-                <div className="flex justify-between items-center mb-6">
-                    <h2 className="text-2xl sm:text-3xl font-bold text-white border-b border-[#FFC107] pb-1 w-fit ml-5">
-                        Trending Now
-                    </h2>
-                </div>
-                <p className="text-gray-400">Loading trending movies...</p>
-            </section>
-        );
+        return <TrendingMoviesSkeleton />;
     }
 
     return (

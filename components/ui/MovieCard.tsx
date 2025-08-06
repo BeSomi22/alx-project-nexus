@@ -1,14 +1,8 @@
 import Link from "next/link";
+import { MovieCardProps } from "@/interfaces";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 import { useFavoritesStore } from "@/store/favouritesStore";
 
-interface MovieCardProps {
-    tmdb_id: number;
-    title: string;
-    poster_url: string;
-    vote_average: number;
-    genres?: string[];
-}
 
 export default function MovieCard({
     tmdb_id,

@@ -1,3 +1,11 @@
+export interface MovieCardProps {
+  tmdb_id: number;
+  title: string;
+  poster_url: string;
+  vote_average: number;
+  genres?: string[];
+}
+
 export interface Genre {
   id: number;
   tmdb_id: number;
@@ -21,4 +29,12 @@ export interface MovieType {
   imdb_url?: string;
   tmdb_url?: string;
   original_language: string;
+}
+
+export interface TopRatedMovie {
+  tmdb_id: number;
+  title: string;
+  poster_url: string;
+  vote_average: number;
+  genres?: string[];
 }

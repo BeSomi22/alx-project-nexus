@@ -1,7 +1,6 @@
 import Head from "next/head";
 import Link from "next/link";
 import Logo from "@/components/ui/logo";
-import MovieCard from "@/components/ui/MovieCard";
 import HeroSection from "@/components/sections/heroSection";
 import TrendingMovies from "@/components/sections/TrendingMovies";
 import Divider from "@/components/ui/Divider";

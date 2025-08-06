@@ -5,6 +5,7 @@ import Image from "next/image";
 import Navbar from "@/components/layout/Navbar";
 import Carousel from "@/components/ui/Carousal";
 import MovieCard from "@/components/ui/MovieCard";
+import MovieSkeleton from "@/components/ui/MovieSkeleton";
 import ReverseDivider from "@/components/ui/ReverseDivider";
 
 
@@ -113,7 +114,7 @@ export default function MovieDetail() {
         return (
             <div>
                 <Navbar />
-                <div className=" min-h-screen text-white text-center p-10">Loading movie details...</div>
+                <div className=" min-h-screen text-white text-center px-10 py-20"><MovieSkeleton /></div>
             </div>
         );
     }

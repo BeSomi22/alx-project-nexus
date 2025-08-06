@@ -1,13 +1,8 @@
+import { TopRatedMovie } from "@/interfaces";
 import { useEffect, useState } from "react";
+import MoviesListSkeleton from "../ui/MoviesListSkeleton";
 import MovieCard from '@/components/ui/MovieCard'
 
-interface TopRatedMovie {
-    tmdb_id: number;
-    title: string;
-    poster_url: string;
-    vote_average: number;
-    genres?: string[];
-}
 
 export default function TopRatedMovies() {
     const [movies, setMovies] = useState<TopRatedMovie[]>([]);
@@ -57,16 +52,7 @@ export default function TopRatedMovies() {
     }, []);
 
     if (loading) {
-        return (
-            <section className="max-w-7xl mx-auto px-4 py-10">
-                <div className="flex justify-between items-center mb-6">
-                    <h2 className="text-2xl sm:text-3xl font-bold text-white border-b border-[#FFC107] pb-1 w-fit ml-5">
-                        Top Rated Movies
-                    </h2>
-                </div>
-                <p className="text-gray-400">Loading top rated movies...</p>
-            </section>
-        );
+        return <MoviesListSkeleton />;
     }
 
     if (error) {
@@ -102,7 +88,7 @@ export default function TopRatedMovies() {
                 className="
                     grid
                     gap-6
-                    sm:grid-cols-1     
+                    grid-cols-2     
                     md:grid-cols-3    
                     lg:grid-cols-5  
                 "

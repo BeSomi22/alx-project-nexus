@@ -1,20 +1,14 @@
+import { MovieType } from "@/interfaces";
 import { useEffect, useState, useRef } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
+import PopularMoviesSkeleton from "../ui/PopularMoviesSkeleton";
 import Image from "next/image";
 import Link from "next/link";
 
-interface Movie {
-    tmdb_id: number;
-    title: string;
-    poster_url: string;
-    backdrop_url: string;
-    vote_average: number;
-    release_year: number;
-}
 
 export default function PopularMovies() {
-    const [movies, setMovies] = useState<Movie[]>([]);
+    const [movies, setMovies] = useState<MovieType[]>([]);
     const [error, setError] = useState<string>("");
     const [loading, setLoading] = useState<boolean>(true);
 
@@ -79,18 +73,7 @@ export default function PopularMovies() {
     }, []);
 
     if (loading) {
-        return (
-            <section className="w-full max-w-7xl mx-auto px-4 mt-10">
-                <div className="flex justify-between items-center mb-6">
-                    <div className="flex justify-between items-center mb-6">
-                        <h2 className="text-2xl sm:text-3xl font-bold text-white border-b border-[#FFC107] pb-1 w-fit ml-5">
-                            Popular Movies
-                        </h2>
-                    </div>
-                </div>
-                <p className="text-gray-500">Loading movies...</p>
-            </section>
-        );
+        return <PopularMoviesSkeleton />;
     }
 
     return (

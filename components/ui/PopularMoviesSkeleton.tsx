@@ -1,6 +1,6 @@
 export default function PopularMoviesSkeleton() {
     return (
-        <section className="w-full max-w-7xl mx-auto px-4 mt-10 animate-pulse">
+        <section className="w-full max-w-7xl mx-auto px-4 py-3 mt-10 animate-pulse">
 
             {/* Fake carousel slides */}
             <div className="flex gap-4 overflow-hidden pt-10">

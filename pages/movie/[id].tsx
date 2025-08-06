@@ -200,7 +200,7 @@ export default function MovieDetail() {
                 <section className="max-w-6xl mx-auto mt-12 px-6 py-12">
                     <div className="flex justify-between items-center mb-6">
                         <h2 className="text-2xl sm:text-3xl font-bold text-white border-b border-[#FFC107] pb-1 w-fit ml-5">
-                            Similar Movies
+                            You Might Also Like
                         </h2>
                     </div>
                     <Carousel>
@@ -224,7 +224,7 @@ export default function MovieDetail() {
                 <section className="max-w-6xl mx-auto mt-12 px-6 py-12">
                     <div className="flex justify-between items-center mb-6">
                         <h2 className="text-2xl sm:text-3xl font-bold text-white border-b border-[#FFC107] pb-1 w-fit ml-5">
-                            Recommended Movies
+                            Our Picks for You
                         </h2>
                     </div>
                     <Carousel>

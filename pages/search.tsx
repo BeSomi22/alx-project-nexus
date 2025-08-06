@@ -1,8 +1,10 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import Navbar from "@/components/layout/Navbar";
+import SearchResultsSkeleton from "@/components/ui/SearchResultsSkeleton";
 import MovieCard from "@/components/ui/MovieCard";
 import ReverseDivider from "@/components/ui/ReverseDivider";
+import Divider from "@/components/ui/Divider";
 
 export default function SearchPage() {
     const router = useRouter();
@@ -60,14 +62,18 @@ export default function SearchPage() {
     return (
         <div>
             <Navbar />
+            <h2 className="text-2xl font-bold text-white mb-6 pt-25 px-10">
+                Search results for:{" "}
+                <span className="text-[#FFC107]">
+                    {q ? (q as string).charAt(0).toUpperCase() + (q as string).slice(1) : ""}
+                </span>
+            </h2>
 
-            <div className="max-w-6xl min-h-screen mx-auto px-5 pt-20">
-                <h2 className="text-2xl font-bold text-white mb-6">
-                    Search results for:{" "}
-                    <span className="text-[#FFC107]">{q}</span>
-                </h2>
+            <Divider />
 
-                {loading && <p className="text-gray-400">Loading results...</p>}
+            <div className="max-w-6xl min-h-screen mx-auto px-5 ">
+                {loading && <SearchResultsSkeleton />}
+
                 {error && <p className="text-red-500">{error}</p>}
 
                 {!loading && !error && movies.length === 0 && (
@@ -75,14 +81,28 @@ export default function SearchPage() {
                         No movies found. Try another search.
                     </p>
                 )}
-
-                <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-5 gap-6">
+                <div
+                    className="
+                        grid
+                        gap-6
+                        grid-cols-2
+                        md:grid-cols-3
+                        lg:grid-cols-5
+                    "
+                >
                     {movies.map((movie) => (
                         <MovieCard
                             key={movie.tmdb_id}
                             tmdb_id={movie.tmdb_id}
                             title={movie.title}
-                            poster_url={movie.poster_url}
+                            // poster_url={movie.poster_url}
+
+                            // Fallback image if poster_url is missing or empty
+                            poster_url={
+                                movie.poster_url && movie.poster_url.trim() !== ""
+                                    ? movie.poster_url
+                                    : "/fallback-poster.jpg"
+                            }
                             vote_average={movie.vote_average}
                             genres={
                                 movie.primary_genre_name
@@ -92,6 +112,7 @@ export default function SearchPage() {
                         />
                     ))}
                 </div>
+
             </div>
 
             <ReverseDivider />

@@ -5,6 +5,7 @@ import Toast from "@/components/ui/Toast";
 import PopularMovies from "@/components/common/PopularMovies";
 import Divider from "@/components/ui/Divider";
 import TrendingMovies from "@/components/sections/TrendingMovies";
+import FavoriteCarousel from "@/components/sections/FavoriteCarousel";
 import TopRatedMovies from "@/components/common/TopRatedMovies";
 import ReverseDivider from '@/components/ui/ReverseDivider'
 import MoviesList from "@/components/common/MovieList";
@@ -35,6 +36,8 @@ export default function Dashboard() {
             <PopularMovies />
             <Divider />
             <TrendingMovies />
+            {/* Favorites Carousel */}
+            <FavoriteCarousel />
             <MoviesList />
             <TopRatedMovies />
 

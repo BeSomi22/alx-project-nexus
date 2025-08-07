@@ -65,18 +65,6 @@ export default function TrendingMovies() {
         fetchTrendingMovies();
     }, []);
 
-    // if (loading) {
-    //     return (
-    //         <section className="w-full mx-auto px-10 py-20">
-    //             <div className="flex justify-between items-center mb-6">
-    //                 <h2 className="text-2xl sm:text-3xl font-bold text-white border-b border-[#FFC107] pb-1 w-fit ml-5">
-    //                     Trending Now
-    //                 </h2>
-    //             </div>
-    //             <p className="text-gray-400">Loading trending movies...</p>
-    //         </section>
-    //     );
-    // }
 
     if (loading) {
         return <TrendingMoviesSkeleton />;
@@ -112,8 +100,8 @@ export default function TrendingMovies() {
                                     {/* Ranking Number */}
                                     <span
                                         className={`font-extrabold ${index === 0
-                                            ? "text-[5rem] sm:text-[7rem] lg:text-[9rem]"
-                                            : "text-[4rem] sm:text-[6rem] lg:text-[8rem]"
+                                            ? "text-[6rem] sm:text-[8rem] lg:text-[8rem]"
+                                            : "text-[4rem] sm:text-[6rem] lg:text-[6rem]"
                                             }`}
                                         style={{
                                             WebkitTextStroke: "3px #FFC107",
@@ -125,16 +113,22 @@ export default function TrendingMovies() {
                                     </span>
 
                                     {/* Poster */}
-                                    <div className="relative overflow-hidden rounded-lg shadow-lg hover:scale-105 transition-transform duration-300">
+                                    {/* <div className="relative overflow-hidden rounded-lg shadow-lg hover:scale-105 transition-transform duration-300"> */}
+                                    <div
+                                        className="relative overflow-hidden rounded-lg shadow-lg hover:scale-105 transition-transform duration-300"
+                                        style={{
+                                            width: index === 0 ? "208px" : "176px",
+                                            height: index === 0 ? "288px" : "256px",
+                                        }}
+                                    >
+
 
                                         <Image
                                             src={movie.poster_url}
                                             alt={movie.title}
-                                            width={index === 0 ? 208 : 176}
-                                            height={index === 0 ? 288 : 256}
-                                            style={{ width: "100%", height: "auto" }}
+                                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
+                                            fill
                                             className="object-cover"
-                                            // loading="lazy"
                                             priority
                                         />
                                         {/* Rating Badge */}

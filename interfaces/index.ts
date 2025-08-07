@@ -29,6 +29,8 @@ export interface MovieType {
   imdb_url?: string;
   tmdb_url?: string;
   original_language: string;
+  popularity: string;
+  status: string;
 }
 
 export interface TopRatedMovie {

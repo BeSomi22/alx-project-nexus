@@ -121,14 +121,22 @@ export default function PopularMovies() {
                                         key={movie.tmdb_id}
                                         className="flex-shrink-0"
                                     >
-                                        <Image
+                                        {/* <Image
                                             src={movie.poster_url || "/fallback-poster.jpg"}
                                             alt={movie.title}
                                             width={120}
                                             height={180}
                                             className="rounded-lg shadow-lg object-cover"
                                             priority
-                                        />
+                                        /> */
+                                            <Image
+                                                src={movie.poster_url || "/fallback-poster.jpg"}
+                                                alt={movie.title}
+                                                width={120}
+                                                height={180}
+                                                className="rounded-lg shadow-lg object-cover w-[120px] h-[180px]"
+                                                priority
+                                            />}
                                     </Link>
                                     {/* Movie Details */}
                                     <div>

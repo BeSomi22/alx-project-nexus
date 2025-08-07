@@ -134,7 +134,7 @@ export default function MovieDetail() {
         <div>
             {/* Movie Details */}
             <section
-                className="relative w-full text-white">
+                className="relative  max-w-5xl mx-auto p-6 text-white">
                 <Navbar />
 
                 {/* Content */}
@@ -167,6 +167,10 @@ export default function MovieDetail() {
 
                         <div className="grid grid-cols-2 gap-x-8 gap-y-4 max-w-lg text-sm md:text-base">
                             <div>
+                                <span className="font-semibold text-white">Status:</span>{" "}
+                                {movie.status}
+                            </div>
+                            <div>
                                 <span className="font-semibold text-white">Release Year:</span>{" "}
                                 {movie.release_year}
                             </div>
@@ -190,6 +194,10 @@ export default function MovieDetail() {
                                     {movie.genres.map((g) => g.name).join(", ")}
                                 </div>
                             )}
+                            <div>
+                                <span className="font-semibold text-white">Popularity:</span>{" "}
+                                {movie.popularity}
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -100,7 +100,7 @@ export default function SearchPage() {
                             poster_url={
                                 movie.poster_url && movie.poster_url.trim() !== ""
                                     ? movie.poster_url
-                                    : "/fallback-poster.jpg"
+                                    : "/img/fallback-poster.png"
                             }
                             vote_average={movie.vote_average}
                             genres={

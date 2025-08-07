@@ -2,6 +2,7 @@ import Link from "next/link";
 import { MovieCardProps } from "@/interfaces";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 import { useFavoritesStore } from "@/store/favouritesStore";
+import { useEffect } from "react";
 
 
 export default function MovieCard({
@@ -23,6 +24,15 @@ export default function MovieCard({
         }
     };
 
+    //For backend
+    // const { addFavorite, removeFavorite, isFavorite, fetchFavorites } = useFavoritesStore();
+
+    //For backend
+    // useEffect(() => {
+    //     fetchFavorites();
+    // }, [fetchFavorites]);
+
+
     return (
         <Link
             href={`/movie/${tmdb_id}`}
@@ -31,7 +41,8 @@ export default function MovieCard({
             {/* Poster */}
             <div className="relative w-full h-80">
                 <img
-                    src={poster_url}
+                    // src={poster_url}
+                    src={poster_url || "/img/fallback-poster.png"}
                     alt={title}
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                     loading="lazy"
@@ -67,13 +78,13 @@ export default function MovieCard({
                 {/* Hover overlay */}
                 <div
                     className="
-            absolute inset-x-0 bottom-0
-            bg-gradient-to-t from-black/90 to-transparent
-            p-4
-            opacity-0 group-hover:opacity-100
-            transition-opacity duration-300
-            pointer-events-none
-          "
+                        absolute inset-x-0 bottom-0
+                        bg-gradient-to-t from-black/90 to-transparent
+                        p-4
+                        opacity-0 group-hover:opacity-100
+                        transition-opacity duration-300
+                        pointer-events-none
+                    "
                 >
                     <h3 className="text-white font-bold text-lg truncate">{title}</h3>
                     {genres && genres.length > 0 && (

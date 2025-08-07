@@ -25,7 +25,7 @@ export default function Footer() {
               </Link>
             </li>
             <li>
-              <Link href="/favorites" className="hover:text-[#FFC107]">
+              <Link href="/" className="hover:text-[#FFC107]">
                 Favorites
               </Link>
             </li>

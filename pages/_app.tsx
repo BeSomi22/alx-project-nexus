@@ -9,7 +9,7 @@ export default function App({ Component, pageProps }: AppProps) {
       <Head>
         <title>CinePick</title>
         <meta name="description" content="Discover trending, top-rated, and similar movies." />
-        <link rel="icon" href="/cp-img.png" />
+        <link rel="icon" href="/img/cp-img.png" />
       </Head>
       <Component {...pageProps} />
     </Layout>

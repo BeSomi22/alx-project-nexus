@@ -31,6 +31,7 @@ export interface MovieType {
   original_language: string;
   popularity: string;
   status: string;
+  main_trailer_embed_url?: string;
 }
 
 export interface TopRatedMovie {

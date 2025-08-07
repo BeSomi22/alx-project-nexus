@@ -1,5 +1,6 @@
 import Button from "@/components/ui/button";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function HeroSection() {
     return (
@@ -10,7 +11,7 @@ export default function HeroSection() {
             {/* Background Image with Overlay */}
             <div className="absolute inset-0">
                 <Image
-                    src="/hero-bg.jpeg"
+                    src="/img/hero-bg.jpeg"
                     alt="CinePick Background"
                     width={1920}
                     height={1080}
@@ -36,16 +37,20 @@ export default function HeroSection() {
                         placeholder="Search for a movie..."
                         className="flex-grow px-4 py-3 text-black outline-none"
                     />
-                    <button className="bg-gradient-to-tl from-[#FFC107] to-[#E50914] text-white px-6 py-3 font-semibold hover:opacity-90 transition">
-                        Search
-                    </button>
+                    <Link href="/auth/signup/">
+                        <button className="bg-gradient-to-tl from-[#FFC107] to-[#E50914] text-white px-6 py-3 font-semibold hover:opacity-90 transition cursor-pointer">
+                            Search
+                        </button>
+                    </Link>
 
                 </div>
 
                 {/* CTA Button */}
-                <Button variant="outline" size="lg" className="mx-2 my-6" >
-                    Get Started
-                </Button>
+                <Link href="/auth/signup/">
+                    <Button variant="outline" size="lg" className="mx-2 my-6 cursor-pointer">
+                        <span>Get Started</span>
+                    </Button>
+                </Link>
             </div>
         </div>
     )

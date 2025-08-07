@@ -7,6 +7,10 @@ import Carousel from "@/components/ui/Carousal";
 import MovieCard from "@/components/ui/MovieCard";
 import MovieSkeleton from "@/components/ui/MovieSkeleton";
 import ReverseDivider from "@/components/ui/ReverseDivider";
+import { FaHeart, FaRegHeart } from "react-icons/fa";
+import { useFavoritesStore } from "@/store/favouritesStore";
+import TrailerCarousel from "@/components/ui/TrailerList";
+
 
 
 export default function MovieDetail() {
@@ -16,6 +20,9 @@ export default function MovieDetail() {
     const [movie, setMovie] = useState<MovieType | null>(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
+
+    const { addFavorite, removeFavorite, isFavorite } = useFavoritesStore();
+    const favorite = isFavorite(movie?.tmdb_id ?? 0);
 
     const [similarMovies, setSimilarMovies] = useState<MovieType[]>([]);
     const [recommendedMovies, setRecommendedMovies] = useState<MovieType[]>([]);
@@ -110,6 +117,21 @@ export default function MovieDetail() {
         fetchRecommendedMovies();
     }, [id]);
 
+    const toggleFavorite = () => {
+        if (!movie) return;
+        if (favorite) {
+            removeFavorite(movie.tmdb_id);
+        } else {
+            addFavorite({
+                tmdb_id: movie.tmdb_id,
+                title: movie.title,
+                poster_url: movie.poster_url,
+                vote_average: movie.vote_average,
+                genres: movie.genres?.map((g) => g.name) || [],
+            });
+        }
+    };
+
     if (loading) {
         return (
             <div>
@@ -140,7 +162,9 @@ export default function MovieDetail() {
                 {/* Content */}
                 <div className="relative z-10 max-w-6xl mx-auto px-6 py-20 flex flex-col md:flex-row gap-10">
                     {/* Poster */}
-                    <div className="flex-shrink-0">
+                    <div
+                        className="flex-shrink-0"
+                    >
                         <Image
                             src={movie.poster_url}
                             alt={movie.title}
@@ -152,10 +176,24 @@ export default function MovieDetail() {
                     </div>
 
                     {/* Details */}
-                    <div className="flex-1 space-y-6">
+                    <div className=" relative flex-1 space-y-6">
                         <h1 className="text-4xl md:text-5xl font-extrabold leading-tight">
                             {movie.title}
                         </h1>
+
+                        {/* Favorite button */}
+                        <button
+                            onClick={toggleFavorite}
+                            className="absolute top-2 right-2 p-2 bg-black/60 rounded-full hover:bg-black/80 transition"
+                            aria-label={favorite ? "Remove from favorites" : "Add to favorites"}
+                        >
+                            {favorite ? (
+                                <FaHeart className="text-red-500 text-lg" />
+                            ) : (
+                                <FaRegHeart className="text-white text-lg" />
+                            )}
+                        </button>
+
 
                         {movie.tagline && (
                             <p className="italic text-gray-300 text-lg">{`"${movie.tagline}"`}</p>
@@ -202,6 +240,11 @@ export default function MovieDetail() {
                     </div>
                 </div>
             </section>
+
+            {/* Trailer videos */}
+            {movie.main_trailer_embed_url && (
+                <TrailerCarousel trailerUrls={[movie.main_trailer_embed_url]} />
+            )}
 
             {/* Similar Movies */}
             {similarMovies.length > 0 && (

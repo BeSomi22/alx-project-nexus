@@ -57,7 +57,7 @@ export default function SignUpPage() {
             <div className="absolute inset-0">
                 <div className="relative w-full h-full">
                     <Image
-                        src="/hero-bg.jpeg"
+                        src="/img/hero-bg.jpeg"
                         alt="Background"
                         fill
                         className="object-cover"
@@ -72,7 +72,7 @@ export default function SignUpPage() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5 }}
                 onSubmit={handleSubmit}
-                className="relative z-10 bg-[#1E293B]/90 p-8 rounded-tl-2xl rounded-br-2xl w-full max-w-md  shadow-2xl shadow-white/20 mx-3"
+                className="relative z-10 bg-[#1E293B]/90 p-8 rounded-tl-2xl rounded-br-2xl w-full max-w-md  shadow-2xl shadow-white/20 mx-3 my-10"
             >
                 <div className="flex justify-center mb-6">
                     <Logo size="text-4xl" />
@@ -153,7 +153,7 @@ export default function SignUpPage() {
                     className="w-full flex items-center justify-center gap-3 bg-white text-black font-semibold py-3 rounded-lg hover:bg-gray-200 transition"
                 >
                     <Image
-                        src="/google-icon.png"
+                        src="/icons/google-icon.png"
                         alt="Google"
                         width={20}
                         height={20}

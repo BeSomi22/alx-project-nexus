@@ -8,11 +8,11 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        primary: "#1A3E72", // Deep navy blue
-        accent: "#FF6F3C", // Vibrant orange
-        background: "#0F1C2E", // Darker navy background
+        // primary: "#1A3E72", // Deep navy blue
+        // accent: "#FF6F3C", // Vibrant orange
+        // background: "#0F1C2E", // Darker navy background
       },
     },
   },
-  plugins: [],
+  plugins: [require("@tailwindcss/aspect-ratio")],
 };

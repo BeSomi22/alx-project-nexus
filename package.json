@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@tailwindcss/aspect-ratio": "^0.4.2",
     "axios": "^1.11.0",
     "clsx": "^2.1.1",
     "embla-carousel-autoplay": "^8.6.0",

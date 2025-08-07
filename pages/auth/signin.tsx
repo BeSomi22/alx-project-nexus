@@ -65,7 +65,7 @@ export default function SignInPage() {
             <div className="absolute inset-0 min-h-screen w-full">
                 <div className="relative w-full h-full">
                     <Image
-                        src="/hero-bg.jpeg"
+                        src="/img/hero-bg.jpeg"
                         alt="Background"
                         fill
                         className="object-cover"
@@ -137,7 +137,7 @@ export default function SignInPage() {
                     className="w-full flex items-center justify-center gap-3 bg-white text-black font-semibold py-3 rounded-lg hover:bg-gray-200 transition"
                 >
                     <Image
-                        src="/google-icon.png"
+                        src="/icons/google-icon.png"
                         alt="Google"
                         width={20}
                         height={20}

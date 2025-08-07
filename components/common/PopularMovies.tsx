@@ -103,7 +103,7 @@ export default function PopularMovies() {
 
                                 {/* Backdrop Image */}
                                 <Image
-                                    src={movie.backdrop_url || "/fallback-backdrop.jpg"}
+                                    src={movie.backdrop_url || "/fallback-backdrop.png"}
                                     alt={`${movie.title} backdrop`}
                                     fill
                                     className="object-cover"
@@ -121,22 +121,14 @@ export default function PopularMovies() {
                                         key={movie.tmdb_id}
                                         className="flex-shrink-0"
                                     >
-                                        {/* <Image
-                                            src={movie.poster_url || "/fallback-poster.jpg"}
+                                        <Image
+                                            src={movie.poster_url || "/img/fallback-poster.png"}
                                             alt={movie.title}
                                             width={120}
                                             height={180}
-                                            className="rounded-lg shadow-lg object-cover"
+                                            className="rounded-lg shadow-lg object-cover w-[120px] h-[180px]"
                                             priority
-                                        /> */
-                                            <Image
-                                                src={movie.poster_url || "/fallback-poster.jpg"}
-                                                alt={movie.title}
-                                                width={120}
-                                                height={180}
-                                                className="rounded-lg shadow-lg object-cover w-[120px] h-[180px]"
-                                                priority
-                                            />}
+                                        />
                                     </Link>
                                     {/* Movie Details */}
                                     <div>

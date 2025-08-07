@@ -155,7 +155,16 @@ export default function Navbar() {
             <AnimatePresence>
                 {open && (
                     <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -20 }}
-                        className="absolute top-20 left-1/2 -translate-x-1/2 w-[90%] bg-white/25 backdrop-blur-md rounded-3xl p-5 flex flex-col items-center gap-4 text-white lg:hidden">
+                        className="
+                            absolute top-20 left-1/2 -translate-x-1/2 w-[90%]
+                            rounded-3xl p-5 flex flex-col items-center gap-4 text-white lg:hidden
+                            bg-black/40
+                            backdrop-blur-md
+                            border border-gray-700
+                            shadow-sm
+                            transition-all duration-300
+                         "
+                    >
                         {navLinks.map(({ href, label }) => (
                             <Link key={href} href={href} onClick={() => setOpen(false)} className="text-base font-semibold  hover:text-[#FFC107]">
                                 {label}

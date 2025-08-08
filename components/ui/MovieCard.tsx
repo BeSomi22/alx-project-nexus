@@ -12,26 +12,18 @@ export default function MovieCard({
     vote_average,
     genres,
 }: MovieCardProps) {
-    const { addFavorite, removeFavorite, isFavorite } = useFavoritesStore();
+    const { addFavorite, removeFavorite, isFavorite, } = useFavoritesStore();
+
     const favorite = isFavorite(tmdb_id);
 
     const toggleFavorite = (e: React.MouseEvent) => {
-        e.preventDefault(); // Prevent navigation when clicking heart
+        e.preventDefault();
         if (favorite) {
             removeFavorite(tmdb_id);
         } else {
             addFavorite({ tmdb_id, title, poster_url, vote_average, genres });
         }
     };
-
-    //For backend
-    // const { addFavorite, removeFavorite, isFavorite, fetchFavorites } = useFavoritesStore();
-
-    //For backend
-    // useEffect(() => {
-    //     fetchFavorites();
-    // }, [fetchFavorites]);
-
 
     return (
         <Link
@@ -41,7 +33,6 @@ export default function MovieCard({
             {/* Poster */}
             <div className="relative w-full h-80">
                 <img
-                    // src={poster_url}
                     src={poster_url || "/img/fallback-poster.png"}
                     alt={title}
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"

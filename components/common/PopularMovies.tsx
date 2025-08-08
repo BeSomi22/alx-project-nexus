@@ -147,7 +147,3 @@ export default function PopularMovies() {
         </section>
     );
 }
-
-
-
-

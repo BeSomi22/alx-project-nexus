@@ -9,8 +9,7 @@ export default function Layout({ children }: LayoutProps) {
     return (
         <div className="min-h-screen w-full bg-[#0F172A] text-white">
             {/* <Navbar /> */}
-            <main className="flex-grow w-full container mx-auto"
-            >
+            <main>
                 {children}
             </main>
             <Footer />

@@ -7,7 +7,7 @@ import Divider from "@/components/ui/Divider";
 import TrendingMovies from "@/components/sections/TrendingMovies";
 import FavoriteCarousel from "@/components/sections/FavoriteCarousel";
 import TopRatedMovies from "@/components/common/TopRatedMovies";
-import ReverseDivider from '@/components/ui/ReverseDivider'
+import ReverseDivider from '@/components/ui/ReverseDivider';
 import MoviesList from "@/components/common/MovieList";
 
 export default function Dashboard() {
@@ -24,10 +24,9 @@ export default function Dashboard() {
     useEffect(() => {
         const token = localStorage.getItem("cinepick_token");
         if (!token) {
-            router.push("/auth/signin")
+            router.push("/auth/signin");
         }
-    }, [router])
-
+    }, [router]);
 
     return (
         <div className="min-h-screen w-full bg-[#0F172A] text-white flex flex-col items-center justify-center">
@@ -40,8 +39,7 @@ export default function Dashboard() {
             <FavoriteCarousel />
             <MoviesList />
             <TopRatedMovies />
-
             <ReverseDivider />
         </div>
-    )
+    );
 }

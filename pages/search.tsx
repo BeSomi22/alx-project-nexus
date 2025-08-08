@@ -6,11 +6,21 @@ import MovieCard from "@/components/ui/MovieCard";
 import ReverseDivider from "@/components/ui/ReverseDivider";
 import Divider from "@/components/ui/Divider";
 
+interface SearchMovie {
+    tmdb_id: number;
+    title: string;
+    poster_url: string;
+    vote_average: number;
+    primary_genre_name?: string;
+}
+
 export default function SearchPage() {
     const router = useRouter();
     const { q, page } = router.query;
 
-    const [movies, setMovies] = useState<any[]>([]);
+    // const [movies, setMovies] = useState<any[]>([]);
+
+    const [movies, setMovies] = useState<SearchMovie[]>([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
     const [currentPage, setCurrentPage] = useState<number>(1);
@@ -52,10 +62,11 @@ export default function SearchPage() {
                 } else {
                     setMovies([]);
                 }
-            } catch (err: any) {
-                setError(err.message || "Failed to fetch search results");
+            } catch (err: unknown) {
+                setError(err instanceof Error ? err.message : "Failed to fetch search results");
                 setMovies([]);
-            } finally {
+            }
+            finally {
                 setLoading(false);
             }
         };

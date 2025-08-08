@@ -11,8 +11,6 @@ import { FaHeart, FaRegHeart } from "react-icons/fa";
 import { useFavoritesStore } from "@/store/favouritesStore";
 import TrailerList from "@/components/ui/TrailerList";
 
-
-
 export default function MovieDetail() {
     const router = useRouter();
     const { id } = router.query;
@@ -58,9 +56,9 @@ export default function MovieDetail() {
 
                 const data = await res.json();
                 setMovie(data.data || data || null);
-            } catch (err: any) {
+            } catch (err: unknown) {
                 console.error("Failed to fetch movie details:", err);
-                setError(err.message || "Failed to fetch movie details");
+                setError(err instanceof Error ? err.message : "Failed to fetch movie details");
             } finally {
                 setLoading(false);
             }
@@ -141,7 +139,6 @@ export default function MovieDetail() {
         );
     }
 
-
     if (error)
         return (
             <div className="p-10 text-red-500">
@@ -194,7 +191,6 @@ export default function MovieDetail() {
                             )}
                         </button>
 
-
                         {movie.tagline && (
                             <p className="italic text-gray-300 text-lg">{`"${movie.tagline}"`}</p>
                         )}
@@ -244,7 +240,6 @@ export default function MovieDetail() {
             {/* Trailer videos */}
             {movie.main_trailer_embed_url && (
                 <TrailerList trailerUrls={[movie.main_trailer_embed_url]} />
-
             )}
 
             {/* Similar Movies */}
@@ -296,6 +291,5 @@ export default function MovieDetail() {
             )}
             <ReverseDivider />
         </div >
-
     );
 }

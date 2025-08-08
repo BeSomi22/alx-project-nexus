@@ -38,9 +38,13 @@ export default function SignUpPage() {
 
             // Redirect to Signin with success query
             router.push("/auth/signin?success=signup");
-        } catch (err: any) {
-            setError(err.message);
-        } finally {
+            // } catch (err: any) {
+            //     setError(err.message);
+            // }
+        } catch (err: unknown) {
+            setError(err instanceof Error ? err.message : "Login failed");
+        }
+        finally {
             setLoading(false);
         }
     };

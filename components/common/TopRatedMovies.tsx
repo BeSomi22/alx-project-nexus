@@ -44,10 +44,11 @@ export default function TopRatedMovies() {
                             : [];
 
                 setMovies(results);
-            } catch (err: any) {
+            } catch (err: unknown) {
                 console.error("Failed to fetch top rated movies:", err);
-                setError(err.message || "Failed to load top rated movies");
-            } finally {
+                setError(err instanceof Error ? err.message : "Failed to load top rated movies");
+            }
+            finally {
                 setLoading(false);
             }
         };

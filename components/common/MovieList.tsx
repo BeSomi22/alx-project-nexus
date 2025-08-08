@@ -51,10 +51,11 @@ export default function MoviesList() {
                             : [];
 
                 setMovies(results);
-            } catch (err: any) {
+            } catch (err: unknown) {
                 console.error("Failed to fetch movies:", err);
-                setError(err.message || "Failed to load movies");
-            } finally {
+                setError(err instanceof Error ? err.message : "Failed to load movies");
+            }
+            finally {
                 setLoading(false);
             }
         };

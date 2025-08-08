@@ -61,10 +61,11 @@ export default function PopularMovies() {
 
                 // Adjust based on API shape
                 setMovies(data.data?.results || data.results || []);
-            } catch (err: any) {
+            } catch (err: unknown) {
                 console.error("Failed to fetch popular movies:", err);
-                setError(err.message || "Failed to fetch movies");
-            } finally {
+                setError(err instanceof Error ? err.message : "Failed to fetch movies");
+            }
+            finally {
                 setLoading(false);
             }
         };

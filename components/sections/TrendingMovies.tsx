@@ -54,10 +54,11 @@ export default function TrendingMovies() {
 
                 const data = await res.json();
                 setMovies(data.data?.results || data.results || []);
-            } catch (err: any) {
+            } catch (err: unknown) {
                 console.error("Failed to fetch trending movies:", err);
-                setError(err.message || "Failed to fetch trending movies");
-            } finally {
+                setError(err instanceof Error ? err.message : "Failed to fetch trending movies");
+            }
+            finally {
                 setLoading(false);
             }
         };

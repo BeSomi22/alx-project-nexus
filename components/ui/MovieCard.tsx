@@ -2,7 +2,7 @@ import Link from "next/link";
 import { MovieCardProps } from "@/interfaces";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 import { useFavoritesStore } from "@/store/favouritesStore";
-import { useEffect } from "react";
+import Image from "next/image";
 
 
 export default function MovieCard({
@@ -32,12 +32,13 @@ export default function MovieCard({
         >
             {/* Poster */}
             <div className="relative w-full h-80">
-                <img
+                <Image
                     src={poster_url || "/img/fallback-poster.png"}
                     alt={title}
+                    width={320}
+                    height={480}
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                     loading="lazy"
-
                 />
 
                 {/* Favorite button */}

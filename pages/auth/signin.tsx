@@ -39,9 +39,13 @@ export default function SignInPage() {
 
             // Redirect to dashboard with success query
             router.push("/dashboard?success=login");
-        } catch (err: any) {
-            setError(err.message);
-        } finally {
+            // } catch (err: any) {
+            //     setError(err.message);
+            // }
+        } catch (err: unknown) {
+            setError(err instanceof Error ? err.message : "Login failed");
+        }
+        finally {
             setLoading(false);
         }
     };

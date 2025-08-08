@@ -8,11 +8,17 @@ import Divider from "@/components/ui/Divider";
 
 export default function SearchPage() {
     const router = useRouter();
-    const { q } = router.query;
+    const { q, page } = router.query;
 
     const [movies, setMovies] = useState<any[]>([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
+    const [currentPage, setCurrentPage] = useState<number>(1);
+
+    useEffect(() => {
+        const parsedPage = parseInt(page as string) || 1;
+        setCurrentPage(parsedPage);
+    }, [page]);
 
     useEffect(() => {
         if (!q) return;
@@ -25,8 +31,9 @@ export default function SearchPage() {
                 const apiUrl = process.env.NEXT_PUBLIC_API_URL;
                 if (!apiUrl) throw new Error("API URL not configured");
 
-                const url = `${apiUrl.replace(/\/$/, "")}/api/v1/movies/search?q=${encodeURIComponent(q as string)}`;
-                // console.log("Fetching:", url);
+                const url = `${apiUrl.replace(/\/$/, "")}/api/v1/movies/search?q=${encodeURIComponent(
+                    q as string
+                )}&page=${currentPage}`;
 
                 const res = await fetch(url, {
                     headers: {
@@ -36,13 +43,9 @@ export default function SearchPage() {
                     },
                 });
 
-                // console.log("Response status:", res.status);
-
                 if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
 
                 const data = await res.json();
-
-                // console.log("Response data:", data);
 
                 if (Array.isArray(data.data?.results)) {
                     setMovies(data.data.results);
@@ -56,12 +59,21 @@ export default function SearchPage() {
                 setLoading(false);
             }
         };
+
         fetchMovies();
-    }, [q]);
+    }, [q, currentPage]);
+
+    const handlePageChange = (newPage: number) => {
+        router.push({
+            pathname: "/search",
+            query: { q, page: newPage },
+        });
+    };
 
     return (
         <div>
             <Navbar />
+
             <h2 className="text-2xl font-bold text-white mb-6 pt-25 px-10">
                 Search results for:{" "}
                 <span className="text-[#FFC107]">
@@ -71,16 +83,14 @@ export default function SearchPage() {
 
             <Divider />
 
-            <div className="max-w-6xl min-h-screen mx-auto px-5 ">
+            <div className="max-w-6xl min-h-screen mx-auto px-5">
                 {loading && <SearchResultsSkeleton />}
-
                 {error && <p className="text-red-500">{error}</p>}
 
                 {!loading && !error && movies.length === 0 && (
-                    <p className="text-gray-400">
-                        No movies found. Try another search.
-                    </p>
+                    <p className="text-gray-400">No movies found. Try another search.</p>
                 )}
+
                 <div
                     className="
                         grid
@@ -95,8 +105,6 @@ export default function SearchPage() {
                             key={movie.tmdb_id}
                             tmdb_id={movie.tmdb_id}
                             title={movie.title}
-
-                            // Fallback image if poster_url is missing or empty
                             poster_url={
                                 movie.poster_url && movie.poster_url.trim() !== ""
                                     ? movie.poster_url
@@ -112,6 +120,28 @@ export default function SearchPage() {
                     ))}
                 </div>
 
+                {!loading && movies.length > 0 && (
+                    <div className="flex justify-center items-center gap-6 mt-10">
+                        <button
+                            className="bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded disabled:opacity-50"
+                            disabled={currentPage === 1}
+                            onClick={() => handlePageChange(currentPage - 1)}
+                        >
+                            ⬅ Previous
+                        </button>
+
+                        <span className="text-white text-lg font-medium">
+                            {currentPage}
+                        </span>
+
+                        <button
+                            className="bg-yellow-500 hover:bg-gray-600 text-black py-2 px-4 rounded"
+                            onClick={() => handlePageChange(currentPage + 1)}
+                        >
+                            Next ➡
+                        </button>
+                    </div>
+                )}
             </div>
 
             <ReverseDivider />

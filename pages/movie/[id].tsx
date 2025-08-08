@@ -9,7 +9,7 @@ import MovieSkeleton from "@/components/ui/MovieSkeleton";
 import ReverseDivider from "@/components/ui/ReverseDivider";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 import { useFavoritesStore } from "@/store/favouritesStore";
-import TrailerCarousel from "@/components/ui/TrailerList";
+import TrailerList from "@/components/ui/TrailerList";
 
 
 
@@ -156,7 +156,7 @@ export default function MovieDetail() {
         <div>
             {/* Movie Details */}
             <section
-                className="relative  max-w-5xl mx-auto p-6 text-white">
+                className="relative  max-w-5xl mx-auto p-3 md:p-6 text-white">
                 <Navbar />
 
                 {/* Content */}
@@ -243,7 +243,8 @@ export default function MovieDetail() {
 
             {/* Trailer videos */}
             {movie.main_trailer_embed_url && (
-                <TrailerCarousel trailerUrls={[movie.main_trailer_embed_url]} />
+                <TrailerList trailerUrls={[movie.main_trailer_embed_url]} />
+
             )}
 
             {/* Similar Movies */}

@@ -75,6 +75,6 @@ Now open **http://localhost:3000** in your browser to see CinePick in action.
 
 | Landing Page                              | Home Page                                | Movie Details                                        | Favorites                                          |
 | ----------------------------------------- | ---------------------------------------- | ---------------------------------------------------- | -------------------------------------------------- |
-| ![Landing Screenshot](screenshots/landing.png) | ![Home Screenshot](screenshots/home.png) | ![Movie Details Screenshot](screenshots/details.png) | ![Favorites Screenshot](screenshots/favorites.png) |
+| ![Landing Screenshot](https://raw.githubusercontent.com/besomi22/alx-project-nexus/main/public/screenshots/landing.png) | ![Home Screenshot](https://raw.githubusercontent.com/besomi22/alx-project-nexus/main/public/screenshots/home.png) | ![Movie Details Screenshot](https://raw.githubusercontent.com/besomi22/alx-project-nexus/main/public/screenshots/details.png) | ![Favorites Screenshot](https://raw.githubusercontent.com/besomi22/alx-project-nexus/main/public/screenshots/favorites.png) |
 
 

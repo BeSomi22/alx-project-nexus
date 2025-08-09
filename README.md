@@ -58,14 +58,7 @@ Inside the root folder, create a `.env.local` file and add your API key:
 
 ```env
 NEXT_PUBLIC_API_URL=https://your-api-endpoint.com
-NEXT_PUBLIC_API_KEY=your_api_key_here
-```
 
-If using authentication and favorites, also include:
-
-```env
-NEXT_PUBLIC_AUTH_API_URL=https://your-auth-api-endpoint.com
-NEXT_PUBLIC_FAVORITES_API_URL=https://your-favorites-api-endpoint.com
 ```
 
 ### 5️⃣ Start the Development Server
